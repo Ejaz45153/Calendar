@@ -4,21 +4,21 @@ import * as React from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { DayPicker } from "react-day-picker"
 
-import { cn } from "@/lib/utils"
-import { buttonVariants } from "@/components/ui/button"
+import { cn } from "@/lib/utils" // Ensure this utility is defined and imported
+import { buttonVariants } from "@/components/ui/button" // Ensure buttonVariants is defined correctly
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>
 
 function Calendar({
   className,
-  classNames,
+  classNames = {}, // Default empty object in case no custom classNames are passed
   showOutsideDays = true,
   ...props
 }: CalendarProps) {
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
-      className={cn("p-3", className)}
+      className={cn("p-3", className)} // Ensure cn is a valid class-name merging function
       classNames={{
         months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
         month: "space-y-4",
@@ -51,7 +51,7 @@ function Calendar({
         day_range_middle:
           "aria-selected:bg-accent aria-selected:text-accent-foreground",
         day_hidden: "invisible",
-        ...classNames,
+        ...classNames, // Apply custom classNames if any
       }}
       components={{
         IconLeft: ({ className, ...props }) => (
@@ -61,10 +61,11 @@ function Calendar({
           <ChevronRight className={cn("h-4 w-4", className)} {...props} />
         ),
       }}
-      {...props}
+      {...props} // Spread other props to `DayPicker`
     />
   )
 }
+
 Calendar.displayName = "Calendar"
 
 export { Calendar }
